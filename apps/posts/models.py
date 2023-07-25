@@ -1,5 +1,5 @@
 from django.db import models
-
+from apps.users.models import User
 # Create your models here.
 
 class Post(models.Model):
@@ -9,6 +9,11 @@ class Post(models.Model):
     description = models.TextField()
     created = models.DateTimeField(
         auto_now_add=True
+    )
+    owner = models.ForeignKey(
+        User,
+        related_name='posts',
+        on_delete=models.CASCADE
     )
     
     def __str__(self):
