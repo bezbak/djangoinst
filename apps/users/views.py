@@ -6,7 +6,7 @@ def register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        confirm_password = request.POST.get('username')
+        confirm_password = request.POST.get('confirm_password')
         if password == confirm_password:
             user = User.objects.create(username=username)
             user.set_password(password)
