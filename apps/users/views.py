@@ -30,5 +30,5 @@ def user_login(request):
             login(request, user)
             return redirect("index")
         except:
-            HttpResponse('Такого пользователя нет')
+            return HttpResponse('Такого пользователя нет')
     return render(request, 'sign-in.html')
