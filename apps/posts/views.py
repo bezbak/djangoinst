@@ -14,10 +14,17 @@ def create_post(request):
     if request.method == 'POST':
         post_image = request.FILES.get('post_image')
         description = request.POST.get('description')
-        try:
-            post = Post.objects.create(image=post_image, description=description, owner=request.user)
-            post.save()
-            return redirect('index')
-        except:
-            return HttpResponse("Не получилось создать пост")
+        # try:
+        post = Post.objects.create(image=post_image, description=description, owner=request.user)
+        post.save()
+        return redirect('index')
+        # except:
+        #     return HttpResponse("Не получилось создать пост")
     return render(request, 'create_post.html')
+
+def post_detail(request,id):
+    post = Post.objects.get(id = id)
+    context = {
+        'post':post
+    }
+    return render(request, 'comment.html', context)
