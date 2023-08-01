@@ -1,10 +1,20 @@
 from django.shortcuts import render, redirect
-from apps.posts.models import Post
+from apps.posts.models import Post, Comment, Like
 from apps.users.models import User
 from django.http import HttpResponse
 # Create your views here.
 def index(request):
     posts = Post.objects.all().order_by('-id') #! === SELECT * FROM post;
+    if request.method == 'POST':
+        post_id = request.POST.get("post_id")
+        post = Post.objects.get(id=post_id)
+        try:
+            like = Like.objects.get(post = post, user = request.user)
+            like.delete()
+            return redirect('index')
+        except:
+            like = Like.objects.create(post=post, user = request.user)
+            return redirect('index')
     context = {
         'posts':posts
     }

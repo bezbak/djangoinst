@@ -32,7 +32,9 @@ body{
     line-height: 17px;
     color: #131313;
 }
-
+.header{
+    padding-top: 150px !important;
+}
 .container{
     max-width: 1220px;
     padding: 0 10;
