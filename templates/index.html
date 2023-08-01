@@ -17,9 +17,9 @@
                       <form method="POST">
                         {% csrf_token %}
                         <input type="hidden" value="{{post.id}}" name="post_id">
-                        <button type="submit" class="btn btn-sm btn-outline-secondary">{{post.post_like.count}} Like</button>
+                        <button type="submit" class="btn btn-sm btn-outline-danger">{{post.post_like.count}} Like</button>
                       </form>
-                      <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'post_detail' post.id %}"> 2 Comment</a></button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'post_detail' post.id %}"> {{post.comment_post.count}} Comment</a></button>
                       <a href='#' class="btn btn-sm btn-outline-secondary">@{{post.owner.username }}</a>
                     </div>
                     <small class="text-muted">Дата создания: {{post.created}}</small>

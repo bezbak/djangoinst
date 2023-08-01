@@ -34,6 +34,12 @@ def create_post(request):
 
 def post_detail(request,id):
     post = Post.objects.get(id = id)
+    if request.method == 'POST':
+        if 'comment' in request.POST:
+            text = request.POST.get('text')
+            comment = Comment.objects.create(post=post, user = request.user, text = text)
+            comment.save()
+            return redirect('post_detail', post.id)
     context = {
         'post':post
     }
