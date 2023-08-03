@@ -40,6 +40,14 @@ def post_detail(request,id):
             comment = Comment.objects.create(post=post, user = request.user, text = text)
             comment.save()
             return redirect('post_detail', post.id)
+        if 'like' in request.POST:
+            try:
+                like = Like.objects.get(post = post, user = request.user)
+                like.delete()
+                return redirect('index')
+            except:
+                like = Like.objects.create(post=post, user = request.user)
+                return redirect('index')
     context = {
         'post':post
     }

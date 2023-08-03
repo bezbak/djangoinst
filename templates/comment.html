@@ -14,7 +14,10 @@
                   <p class="card-text " style="width: 500px; margin: 15px 0;">{{post.description}}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">12 Like</button>
+                      <form method="POST">
+                        {% csrf_token %}
+                        <button type="submit" name="like" class="btn btn-sm btn-outline-danger">{{post.post_like.count}} Like</button>
+                      </form>
                       <button type="button" class="btn btn-sm btn-outline-secondary">{{post.comment_post.count}} Comment</button>
                       <button type="button" class="btn btn-sm btn-outline-secondary">@{{post.owner.username}}</button>
                       {% if request.user == post.owner %}
@@ -47,7 +50,6 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary">12 Like</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">2 Ответы</button>
                       <button type="button" class="btn btn-sm btn-outline-secondary">@{{comment.user.username}}</button>
                     </div>
                     <small class="text-muted">{{comment.created}}</small>
