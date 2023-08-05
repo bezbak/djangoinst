@@ -20,7 +20,7 @@
                         <button type="submit" class="btn btn-sm btn-outline-danger">{{post.post_like.count}} Like</button>
                       </form>
                       <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'post_detail' post.id %}"> {{post.comment_post.count}} Comment</a></button>
-                      <a href='#' class="btn btn-sm btn-outline-secondary">@{{post.owner.username }}</a>
+                      <a href='{% url 'profile' post.owner.username %}' class="btn btn-sm btn-outline-secondary">@{{post.owner.username }}</a>
                     </div>
                     <small class="text-muted">Дата создания: {{post.created}}</small>
                   </div>

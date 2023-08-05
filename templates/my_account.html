@@ -10,15 +10,26 @@
               <ul class="info_bar">
                 <li class=""><img class="acc-logo" src="{{user.profile_image.url}}" alt=""></li>
                 <li class="info_el"><h5 class="text-5">{{user.posts.count}}</h5><p class="text">Публикации</p></li>
-                <li class="info_el"><h5 class="text-5">232</h5><p class="text">Подписчики</p></li>
-                <li class="info_el"><h5 class="text-5">232</h5><p class="text">Подписки</p></li>
+                <li class="info_el"><h5 class="text-5">{{user.followers.count}}</h5><p class="text">Подписчики</p></li>
+                <li class="info_el"><h5 class="text-5">{{user.follows.count}}</h5><p class="text">Подписки</p></li>
               </ul>
               <div class="simple_padding">
                 <h2 class="name">{{user.username}}</h2>
                 <p class="description">{{user.description}}</p>
                 <a href="www.youtube.com" class="info_link">www.youtube.com</a>
               </div>
-              <button class="btn btn-outline-primary">Редактировать профиль</button>
+              {% if request.user == user %}
+              <a href="{% url 'profile_update' request.user.username %}" class="btn btn-outline-primary">Редактировать профиль</a>
+              {% else %}
+              <form method="POST">
+                {% csrf_token %}
+                  {% if follow_status %}
+                    <button class="btn btn-outline-danger">Отписаться</button>
+                  {% else %}
+                    <button class="btn btn-outline-primary">Подписаться</button>
+                  {% endif %}
+              </form>
+              {% endif %}
             </div>
           </div>
           <div class="row simple_padding row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">

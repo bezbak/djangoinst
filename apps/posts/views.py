@@ -44,10 +44,10 @@ def post_detail(request,id):
             try:
                 like = Like.objects.get(post = post, user = request.user)
                 like.delete()
-                return redirect('index')
+                return redirect('post_detail', post.id)
             except:
                 like = Like.objects.create(post=post, user = request.user)
-                return redirect('index')
+                return redirect('post_detail', post.id)
     context = {
         'post':post
     }

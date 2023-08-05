@@ -19,7 +19,7 @@
                         <button type="submit" name="like" class="btn btn-sm btn-outline-danger">{{post.post_like.count}} Like</button>
                       </form>
                       <button type="button" class="btn btn-sm btn-outline-secondary">{{post.comment_post.count}} Comment</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">@{{post.owner.username}}</button>
+                      <a href="{%url 'profile' post.owner.username%}" class="btn btn-sm btn-outline-secondary">@{{post.owner.username}}</a>
                       {% if request.user == post.owner %}
                       <a href='{%url "post_update" post.id %}' class="btn btn-sm btn-outline-primary">Обновить пост</a>
                       <a href='{%url "delete_post" post.id %}' class="btn btn-sm btn-outline-danger">Удалить пост</a>
@@ -50,7 +50,7 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary">12 Like</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">@{{comment.user.username}}</button>
+                      <a href="{%url 'profile' commnet.user.username%}" class="btn btn-sm btn-outline-secondary">@{{comment.user.username}}</a>
                     </div>
                     <small class="text-muted">{{comment.created}}</small>
                   </div>

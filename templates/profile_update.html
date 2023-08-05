@@ -1,0 +1,38 @@
+{% extends 'homepage.html' %}
+{% load static %} 
+{% block content %}
+    {% include 'includes/header.html' %}
+    <div class=" simple_padding album py-5 bg-light">
+      <div class="container">
+          <div class="row g-5">
+              <div class="col-md-7 col-lg-12">
+                <h4 class="mb-3">Обновление данных профиля</h4>
+                <form method="post" class="needs-validation" novalidate="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-3">
+                  <div class="col-12">
+                    <label for="username" class="form-label">Photo</label>
+                    <div class="input-group has-validation">
+                      <input type="file" class="form-control" placeholder="Username" required name="image">
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label for="address" class="form-label">Description</label>
+                    <input type="text" class="form-control" value="{{user.description}}"  required="" name="descr">
+                  </div>
+                  <div class="col-12">
+                    <label for="address" class="form-label">Username</label>
+                    <input type="text" class="form-control" value="{{user.username}}"   required="" name="username">
+                  </div>
+
+                  
+                <hr class="my-4">
+
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Изменить</button>
+              </form>
+        </div>
+      </div>
+    </div>
+    </div>
+{% include 'includes/footer.html' %}
+{% endblock %}
