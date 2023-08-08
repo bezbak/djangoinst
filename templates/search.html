@@ -5,46 +5,41 @@
     <div class=" simple_padding album py-5 bg-light">
         <div class="container">
     
-          <div style="display: flex; justify-content:center;" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {% for post in follow_posts %}
-            <div class="col-8">
+          <div style="display: flex; justify-content:center;" class="row row-cols-2 row-cols-sm-2 row-cols-md-2 g-2">
+            {% for post in posts %}
+            <div class="col-6">
               <div class="card shadow-sm">
                 <img class="bd-placeholder-img card-img-top" width="100%" height="50%" src="{{post.image.url}}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
                 <div class="card-body">
                   <p class="card-text " style="width: 500px; margin: 15px 0;">{{post.description}}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <form method="POST">
+                      {% comment %} <form method="POST">
                         {% csrf_token %}
                         <input type="hidden" value="{{post.id}}" name="post_id">
                         <button type="submit" class="btn btn-sm btn-outline-danger">{{post.post_like.count}} Like</button>
-                      </form>
+                      </form> {% endcomment %}
                       <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'post_detail' post.id %}"> {{post.comment_post.count}} Comment</a></button>
                       <a href='{% url 'profile' post.owner.username %}' class="btn btn-sm btn-outline-secondary">@{{post.owner.username }}</a>
                     </div>
-                    <small class="text-muted">Дата создания: {{post.created}}</small>
+                    {% comment %} <small class="text-muted">Дата создания: {{post.created}}</small> {% endcomment %}
                   </div>
                 </div>
               </div>
             </div>
             {% endfor %}
-            {% for post in posts %}
-            <div class="col-8">
+          </div>
+          <div style="display: flex; justify-content:center;" class="row row-cols-2 row-cols-sm-2 row-cols-md-2 g-2">
+            {% for user in users %}
+            <div class="col-6">
               <div class="card shadow-sm">
-                <img class="bd-placeholder-img card-img-top" width="100%" height="50%" src="{{post.image.url}}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
+                <img class="bd-placeholder-img card-img-top" width="100%" height="50%" src="{{user.profile_image.url}}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
                 <div class="card-body">
                   <p class="card-text " style="width: 500px; margin: 15px 0;">{{post.description}}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <form method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" value="{{post.id}}" name="post_id">
-                        <button type="submit" class="btn btn-sm btn-outline-danger">{{post.post_like.count}} Like</button>
-                      </form>
-                      <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'post_detail' post.id %}"> {{post.comment_post.count}} Comment</a></button>
-                      <a href='{% url 'profile' post.owner.username %}' class="btn btn-sm btn-outline-secondary">@{{post.owner.username }}</a>
+                      <a href='{% url 'profile' user.username %}' class="btn btn-sm btn-outline-secondary">@{{user.username }}</a>
                     </div>
-                    <small class="text-muted">Дата создания: {{post.created}}</small>
                   </div>
                 </div>
               </div>

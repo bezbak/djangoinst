@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
 from apps.posts.models import Post, Comment, Like
-from apps.users.models import User
+from django.db.models import Q
+from apps.users.models import User, Follower
 from django.http import HttpResponse
 # Create your views here.
 def index(request):
-    posts = Post.objects.all().order_by('-id') #! === SELECT * FROM post;
+    follow_users = Follower.objects.all().filter(from_user = request.user) #! Запрашиваем наши подписки
+    follow_users = [i.to_user for i in follow_users]
+    follow_posts = Post.objects.all().filter(owner__in=follow_users) #! ЗАпрашиваем посты наших подписок
+    posts = Post.objects.all().exclude(owner__in = follow_users).order_by('?')[:10] #! === SELECT * FROM post;
     if request.method == 'POST':
         post_id = request.POST.get("post_id")
         post = Post.objects.get(id=post_id)
@@ -16,7 +20,8 @@ def index(request):
             like = Like.objects.create(post=post, user = request.user)
             return redirect('index')
     context = {
-        'posts':posts
+        'posts':posts,
+        'follow_posts':follow_posts
     }
     return render(request, 'index.html', context)
 
@@ -77,3 +82,16 @@ def delete_post(request, id):
         post.delete()
         return redirect('index')
     return render(request, 'post_delete.html', context={'post':post})
+
+def search(request):
+    search_key = request.GET.get('search_key')
+    posts = Post.objects.all()
+    users = User.objects.all()
+    if search_key:
+        posts = Post.objects.all().filter(Q(description__icontains = search_key))
+        users = User.objects.all().filter(Q(username__icontains = search_key))
+    context = {
+        'posts':posts,
+        'users':users,
+    }
+    return render(request, 'search.html', context)
